@@ -1,5 +1,5 @@
 import GlobalStyles from "./styles/GlobalStyles"
-
+//test
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
