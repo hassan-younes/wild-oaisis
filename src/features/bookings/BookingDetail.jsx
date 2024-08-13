@@ -10,7 +10,7 @@ import ButtonGroup from '../../ui/ButtonGroup';
 import Button from '../../ui/Button';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
-
+import {  HiArrowDownOnSquare, HiEye } from 'react-icons/hi2';
 import { useBooking } from './useBooking'
 import { useDeleteBooking } from './useDeleteBooking';
 import { useMoveBack } from '../../hooks/useMoveBack';
@@ -60,11 +60,8 @@ function BookingDetail() {
        <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        {status === 'unconfirmed' && (
-          <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
-            Check in
-          </Button>
-        )}
+      {status==="unconfirmed" && <Button onClick={()=>navigate(`/checkin/${bookingId}`)}><HiArrowDownOnSquare/> check in</Button>}
+     
 
         {status === 'checked-in' && (
           <Button onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
