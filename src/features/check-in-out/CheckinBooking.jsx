@@ -44,6 +44,7 @@ function CheckinBooking() {
     totalPrice,
     numGuests,
     hasBreakfast,
+    status,
     numNights,
   } = booking;
 
@@ -52,9 +53,24 @@ function CheckinBooking() {
 
   function handleCheckin() {
     if (!confirmPaid) return;
-
-  
-   checkin(bookingId);
+    
+    if (addBreakfast){
+      checkin({bookingId:bookingId,
+        data:{
+          status:"checked-in",
+          isPaid: true,
+          hasBreakfast:true,
+          extraPrice:optionalBreakfastPrice,
+          totalPrice:totalPrice + optionalBreakfastPrice
+        }
+});
+    }
+    else {checkin({bookingId:bookingId,
+            data:{
+              status:"checked-in",
+              isPaid: true
+            }
+   });}
   }
 
 if (isCheckingIn) return <Spinner/>
@@ -105,9 +121,9 @@ if (isCheckingIn) return <Spinner/>
       </Box>
 
       <ButtonGroup>
-        <Button onClick={handleCheckin} disabled={isCheckingIn || !confirmPaid}>
+      { status !=="checked-in" &&<Button onClick={handleCheckin} disabled={isCheckingIn || !confirmPaid}>
           Check in booking #{bookingId}
-        </Button>
+        </Button>}
         <Button variation='secondary' onClick={moveBack}>
           Back
         </Button>

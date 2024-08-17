@@ -7,11 +7,8 @@ export function useCheckin() {
 
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading ,data} = useMutation({
-    mutationFn: (bookingId)=>updateBooking(bookingId,{
-      status:"checked-in",
-      isPaid: true
-    }),
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (obj)=>updateBooking(obj.bookingId,obj.data),
 
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey:["booking"] });
