@@ -14,7 +14,7 @@ import {  HiArrowDownOnSquare, HiEye } from 'react-icons/hi2';
 import { useBooking } from './useBooking'
 import { useDeleteBooking } from './useDeleteBooking';
 import { useMoveBack } from '../../hooks/useMoveBack';
-// import { useCheckout } from 'features/check-in-out/useCheckout';
+import { useCheckout } from '../check-in-out/useCheckout';
 import ButtonText from '../../ui/ButtonText';
 import Empty from '../../ui/Empty';
 
@@ -28,13 +28,13 @@ function BookingDetail() {
 
   const {booking ,isLoading,error} = useBooking();
 
-  const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  // const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
+  const { mutate:deleteBooking, isLoading:isDeleting } = useDeleteBooking();
+  const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
 
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading ) return <Spinner />;
   if (error) return <Empty resource='booking' />;
 
   const statusToTagName = {
@@ -45,14 +45,14 @@ function BookingDetail() {
 
   const { id: bookingId, status } = booking;
 
-  // We return a fragment so that these elements fit into the page's layout
+ 
   
   return (
     <>
       <Row type='horizontal'>
         <HeadingGroup>
           <Heading type='h1'>Booking #{bookingId}</Heading>
-          {/* <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag> */}
+          <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
@@ -75,9 +75,8 @@ function BookingDetail() {
           </Modal.Open>
           <Modal.Window name='delete'>
             <ConfirmDelete
-              resource='booking'
-              // These options will be passed wherever the function gets called, and they determine what happens next
-              onConfirm={(options) => deleteBooking(bookingId, options)}
+              resourceName='booking'
+              onConfirm={() => deleteBooking(bookingId)}
               disabled={isDeleting}
             />
           </Modal.Window>
