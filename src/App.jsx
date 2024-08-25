@@ -17,6 +17,7 @@ import Users from "./pages/Users"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast"
 import Booking from "./pages/Booking"
+import ProtectedRout from "./ui/ProtectedRout"
 
 const queryClient= new QueryClient()
 
@@ -29,7 +30,7 @@ return (
 <GlobalStyles />    
 <BrowserRouter>
   <Routes>
-    <Route element={<AppLayout/>} >
+    <Route element={<ProtectedRout><AppLayout/></ProtectedRout>} >
       <Route index element={<Navigate replace to="login"/>} />
       <Route path="dashboard" element={<Dashboard/>} />
       <Route path="account" element={<Account/>} />
