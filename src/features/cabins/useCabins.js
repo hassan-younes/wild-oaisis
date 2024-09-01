@@ -19,7 +19,7 @@ export function useCabins() {
   if (filterValue === "all") filteredCabins=cabins;
   if (filterValue === "no-discount") filteredCabins=cabins.filter(cabin=> cabin.discount === 0);
   if (filterValue === "with-discount") filteredCabins=cabins.filter(cabin=> cabin.discount > 0);
-}  console.log(filteredCabins);
+}  
   
   const sortValue=searchParams.get("sort-by") || "name-asc";
   const [field,direction]=sortValue.split("-")

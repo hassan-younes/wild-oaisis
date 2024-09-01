@@ -1,6 +1,7 @@
 
+import { useNavigate } from "react-router-dom";
 import supabase from "./supabase"
-
+// Login api
 async function Login({email,password}) {
   
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -8,20 +9,33 @@ async function Login({email,password}) {
     password
   })
   if (error) {
-    console.error(error);
+ 
             throw new Error("user could not logged in");
           }
-          console.log(data)
+     
    return data
 }
 
 export default Login
+
+// Log out api
+async function Logout() {
+const { error,isLoading} = await supabase.auth.signOut()
+
+  if (error) {
+ 
+            throw new Error("user could not logged in");
+          }
+     
+   return {isLoading}
+}
+
+export {Logout}
+
+// getting user information
 export async function getCurrentUser(){
   const {data:session} = await supabase.auth.getSession()
-  
   if(!session) return null;
 const {data,error}=await supabase.auth.getUser()
-if(error) throw new Error("user could not be loaded");
- console.log(data)
-return data?.user 
+return data?.user
 }

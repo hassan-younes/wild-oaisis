@@ -1,31 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState,useRef } from "react";
+import useLogin from "./useLogin";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import useLogin from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
-function LoginForm() {
-  const {mutate:login,isLoading:isloggingin}=useLogin()
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  function handleSubmit(e) {
+function LoginForm() {
+  const {mutate:login,isLoading:isloggingin,error}=useLogin()
+  const [email, setEmail] = useState("hassanyounes783@gmail.com");
+  const [password, setPassword] = useState("hassan11..");
+  const ref =useRef()
+  function handleSubmit(e,error) {
     e.preventDefault();;
     if(!email || !password) return
     login({email,password})
+  
+    }
+    console.log(error)
+  
+  useEffect(function()
+  {
+    ref.current.focus()
     
-  }
+    if(error){
+      setEmail("")
+      setPassword("")
+  }},[error,ref])
 
   return (
     <Form  onSubmit={handleSubmit}>
       <FormRow label="Email address" orientation="vertical">
         <Input
+        ref={ref}
           type="email"
           id="email"
           // This makes this form better for password managers
           autoComplete="username"
           value={email}
+          required
           disabled={isloggingin}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -37,6 +50,7 @@ function LoginForm() {
           autoComplete="current-password"
           value={password}
           disabled={isloggingin}
+          required
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormRow>

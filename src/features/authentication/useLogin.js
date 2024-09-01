@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function useLogin(){
 const navigate=useNavigate()
-    const {mutate,isLoading}=useMutation({
+    const {mutate,isLoading,error}=useMutation({
     mutationFn:({email,password})=>Login({email,password}),
 onSuccess:()=>{
     toast.success("user logged in successfully")
     navigate("/dashboard")
 },
-onError: (err) => toast.error(err.message),
+onError: (err) => toast.error("provided email or password are incorrect"),
 })
-return {mutate,isLoading}
+return {mutate,isLoading,error}
 }

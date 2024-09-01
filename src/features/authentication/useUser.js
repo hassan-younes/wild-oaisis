@@ -5,16 +5,15 @@ import toast from "react-hot-toast";
 
 export default function useUser(){
     const navigate=useNavigate()
-    const {data,error,isLoading}=useQuery({
+    const {data:user,isLoading}=useQuery({
         queryKey:["user"],
         queryFn: getCurrentUser,
-        onError:(err)=>{toast.error("please sign in first")
-           
-        }
+
     })
-    
+
+    console.log()
         
     
 
-    return {data,isLoading}
+    return {user,isAuthenticated:user?.role==="authenticated",isLoading}
 }
