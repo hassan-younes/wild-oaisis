@@ -17,7 +17,7 @@ function LoginForm() {
     login({email,password})
   
     }
-    console.log(error)
+
   
   useEffect(function()
   {

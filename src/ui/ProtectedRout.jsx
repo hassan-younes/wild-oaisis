@@ -11,14 +11,13 @@ const FullPage=styled.div`
     align-items: center;
 `
 function ProtectedRout({children}) {
-
     const navigate=useNavigate()
     const {isAuthenticated,isLoading}=useUser()
 
     useEffect(function()
     {
     
-        if(!isAuthenticated && !isLoading) navigate(-1)
+    if(!isAuthenticated && !isLoading) navigate("/login")
     
     },[isAuthenticated,isLoading,navigate])
     

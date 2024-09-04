@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 export default function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
   const { mutate, isLoading, error } = useMutation({
     mutationFn: ({ email, password }) => Login({ email, password }),
     onSuccess: (user) => {
       toast.success("user logged in successfully");
+
       queryClient.setQueryData(["user"], user.user);
       navigate("/dashboard", { replace: true });
     },

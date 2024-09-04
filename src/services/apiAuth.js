@@ -1,41 +1,38 @@
-
 import { useNavigate } from "react-router-dom";
-import supabase from "./supabase"
+import supabase from "./supabase";
 // Login api
-async function Login({email,password}) {
-  
+async function Login({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
-    password
-  })
+    password,
+  });
+
   if (error) {
- 
-            throw new Error("user could not logged in");
-          }
-     
-   return data
+    throw new Error("user could not logged in");
+  }
+
+  return data;
 }
 
-export default Login
+export default Login;
 
 // Log out api
 async function Logout() {
-const { error,isLoading} = await supabase.auth.signOut()
+  const { error, isLoading } = await supabase.auth.signOut();
 
   if (error) {
- 
-            throw new Error("user could not logged in");
-          }
-     
-   return {isLoading}
+    throw new Error("user could not logged in");
+  }
+
+  return { isLoading };
 }
 
-export {Logout}
+export { Logout };
 
 // getting user information
-export async function getCurrentUser(){
-  const {data:session} = await supabase.auth.getSession()
-  if(!session) return null;
-const {data,error}=await supabase.auth.getUser()
-return data?.user
+export async function getCurrentUser() {
+  const { data: session } = await supabase.auth.getSession();
+  if (!session) return null;
+  const { data, error } = await supabase.auth.getUser();
+  return data?.user;
 }
