@@ -14,7 +14,9 @@ const StyledFormRow = styled.div`
   display: flex;
   flex-direction: column;
   `
+
   }
+   
   &:first-child {
     padding-top: 0;
   }
@@ -48,7 +50,7 @@ function FormRow({ label, error, children,orientation }) {
     <StyledFormRow orientation={orientation}>
       {label && <Label htmlFor={children.props.id}>{label}</Label>}
       {children}
-      {error && <Error>{error}</Error>}
+      {(error!=="" && error!== "valaid") && <Error>{error}</Error>}
     </StyledFormRow>
   );
 }

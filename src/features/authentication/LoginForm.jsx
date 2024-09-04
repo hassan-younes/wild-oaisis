@@ -12,7 +12,7 @@ function LoginForm() {
   const [password, setPassword] = useState("hassan11..");
   const ref =useRef()
   function handleSubmit(e,error) {
-    e.preventDefault();;
+    e.preventDefault();
     if(!email || !password) return
     login({email,password})
   
