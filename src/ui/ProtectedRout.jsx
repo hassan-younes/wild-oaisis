@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -10,21 +11,25 @@ const FullPage=styled.div`
     align-items: center;
 `
 function ProtectedRout({children}) {
+
     const navigate=useNavigate()
-    const {isAuthenticated,user,isLoading}=useUser()
-    useEffect(function(){
+    const {isAuthenticated,isLoading}=useUser()
+
+    useEffect(function()
+    {
+    
         if(!isAuthenticated && !isLoading) navigate(-1)
-       },[isAuthenticated,isLoading,navigate])
-    if(isLoading) return( 
-        <>
-    <FullPage>
-    <Spinner/>
-    </FullPage>
-    </>)
+    
+    },[isAuthenticated,isLoading,navigate])
+    
+    if(isLoading) return 
+    <>
+        <FullPage>
+        <Spinner/>
+        </FullPage>
+    </>
       
-    return (
-        children
-    )
+    return children
 }
 
 export default ProtectedRout
