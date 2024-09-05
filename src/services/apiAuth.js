@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import supabase from "./supabase";
 // Login api
 async function Login({ email, password }) {
@@ -33,7 +32,7 @@ export { Logout };
 export async function getCurrentUser() {
   const { data: session } = await supabase.auth.getSession();
   if (!session) return null;
-  const { data, error } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
   return data?.user;
 }
 async function Signup({ fullName, email, password }) {

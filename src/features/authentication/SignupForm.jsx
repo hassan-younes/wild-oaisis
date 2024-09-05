@@ -4,34 +4,15 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import {useEffect, useState,useRef } from "react";
-import { validEmail, validPassword } from './Regex';
 import useSignup from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
-
+import useValidate from "./useValidate";
 function SignupForm() {
   const [formData,setFormdata]=useState({fullName:"",email:"",password:"",passwordConfirm:"" })
   const {fullName,email,password,passwordConfirm}=formData
-  const [error,setError]=useState({fullName:"",email:"",password:"",passwordConfirm:"" })
   const {signup,isLoading}=useSignup()
   const ref=useRef()
- const [validation,setValidation]=useState(true)
-  function validate(){
-  setValidation(true)
-if(fullName!=="") { (fullName.length <= 5)? setError((error)=>({...error,fullName:"please enter a user Full Name"})):setError((error)=>({...error,fullName:"valaid"}))
-    }
-  else{setError((error)=>({...error,fullName:""}))}
-  if(email!==""){!validEmail.test(email)? setError((error)=>({...error,email:"email is invalid"})):setError((error)=>({...error,email:"valaid"}))
-    }
-  else{setError((error)=>({...error,email:""}))}
-   if(password!==""){ password.length<=8? setError((error)=>({...error,password:"password needs a minimum of 8 charcter"})):!validPassword.test(password)? setError((error)=>({...error,password:"password is invalid"})):setError((error)=>({...error,password:"valaid"}));
-    }
-    else{setError((error)=>({...error,password:""}))}
-    if(passwordConfirm!==""){(passwordConfirm !== password)? setError((error)=>({...error,passwordConfirm:"passwords need to be matched"})):setError((error)=>({...error,passwordConfirm:"valaid"}))
-   }
-   else{setError((error)=>({...error,passwordConfirm:""}))}
-  if (error.fullName!=="valaid"||error.email!=="valaid"||error.password!=="valaid"||error.passwordConfirm!=="valaid") setValidation(false)
-    return validation
-  }
+ const{error,validation,validate}=useValidate(formData)
   function handleSubmit(e){
 e.preventDefault();
 validate()
