@@ -11,7 +11,7 @@ function LoginForm() {
   const [email, setEmail] = useState("hassanyounes783@gmail.com");
   const [password, setPassword] = useState("hassan11..");
   const ref =useRef()
-  function handleSubmit(e,error) {
+  function handleSubmit(e) {
     e.preventDefault();
     if(!email || !password) return
     login({email,password})
@@ -55,7 +55,7 @@ function LoginForm() {
         />
       </FormRow>
       <FormRow orientation="vertical">
-        <Button variation={isloggingin? "logging":"primary"} disabled={isloggingin} size="large">{isloggingin? <SpinnerMini/> :"Login"}</Button>
+        <Button variation={isloggingin? "loading":"primary"} disabled={isloggingin} size="large">{isloggingin? <SpinnerMini/> :"Login"}</Button>
       </FormRow>
     </Form>
   );

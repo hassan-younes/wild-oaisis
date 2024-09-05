@@ -14,5 +14,7 @@ const Input = styled.input`
   border-color: var(--color-green-700) 
   `}
 `;
-
+Input.defaultProps = {
+  error: "",
+};
 export default Input;

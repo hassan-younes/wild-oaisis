@@ -30,9 +30,9 @@ const variations = {
       background-color: var(--color-brand-700);
     }
   `,
-  logging: css`
+  loading: css`
     color: var(--color-brand-50);
-    background-color: var(--color-grey-600);
+    background-color: var(--color-green-700);
 
   `,
   secondary: css`

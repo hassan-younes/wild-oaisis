@@ -36,3 +36,21 @@ export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
   return data?.user;
 }
+async function Signup({ fullName, email, password }) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        first_name: fullName,
+      },
+    },
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log(data);
+  return data;
+}
+export { Signup };

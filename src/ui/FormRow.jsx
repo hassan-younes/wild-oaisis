@@ -54,5 +54,8 @@ function FormRow({ label, error, children,orientation }) {
     </StyledFormRow>
   );
 }
+FormRow.defaultProps = {
+  error: "",
+};
 
 export default FormRow;
