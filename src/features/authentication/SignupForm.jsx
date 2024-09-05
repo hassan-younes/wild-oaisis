@@ -1,4 +1,3 @@
- 
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -12,24 +11,29 @@ function SignupForm() {
   const {fullName,email,password,passwordConfirm}=formData
   const {signup,isLoading}=useSignup()
   const ref=useRef()
- const{error,validation,validate}=useValidate(formData)
-  function handleSubmit(e){
-e.preventDefault();
-validate()
-if (!validation){return }
-  signup({fullName,email,password})
+  const{error,validate,isFormValid:validation}=useValidate(formData)
+console.log(error)
+   async function handleSubmit(e){
+    e.preventDefault();
+ 
+    if (!validation){return ref.current.focus()}
+    signup({fullName,email,password},
+      {onSettled:()=>{
+        setFormdata({fullName:"",email:"",password:"",passwordConfirm:"" })
+      }}
+    )
+  }
 
-}
-
-
-useEffect(function()
-{
-  ref.current.focus()
+  useEffect(function()
+    {
+     ref.current.focus()
+    },[ref]);
   
- },[ref])
-
-
-  return (
+function hanldeOnChange(e){
+  setFormdata((data)=>({...data,passwordConfirm:e.target.value}))
+  validate()
+}
+return (
     <Form onSubmit={handleSubmit}>
       <FormRow label="Full name" error={error.fullName}>
         <Input disabled={isLoading} ref={ref} onBlur={validate} error={error.fullName} type="text" value={fullName} name="fullName" id="fullName" onChange={(e)=>setFormdata((data)=>({...data,fullName:e.target.value}))} />
@@ -48,11 +52,10 @@ useEffect(function()
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isLoading} variation={isLoading? "loading":"primary"}>{!isLoading?"Create new user":<SpinnerMini/>}</Button>
+        <Button disabled={isLoading } minWidth="asd" variation={isLoading? "loading":"primary"}>{!isLoading?"Create new user":<SpinnerMini process="Creating.."/>}</Button>
       </FormRow>
     </Form>
   );

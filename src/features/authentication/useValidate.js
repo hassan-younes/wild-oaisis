@@ -1,65 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validEmail, validPassword } from "./Regex";
+
 function useValidate(formData) {
   const { fullName, email, password, passwordConfirm } = formData;
+
   const [error, setError] = useState({
     fullName: "",
     email: "",
     password: "",
     passwordConfirm: "",
   });
-  const [validation, setValidation] = useState(true);
+
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  // Helper function for validation
+  const validateField = (value, validCheck, errorMessage) => {
+    if (value === "") return "";
+    return validCheck ? "valid" : errorMessage;
+  };
+
   function validate() {
-    setValidation(true);
-    if (fullName !== "") {
-      fullName.length <= 5
-        ? setError((error) => ({
-            ...error,
-            fullName: "please enter a user Full Name",
-          }))
-        : setError((error) => ({ ...error, fullName: "valaid" }));
-    } else {
-      setError((error) => ({ ...error, fullName: "" }));
-    }
-    if (email !== "") {
-      !validEmail.test(email)
-        ? setError((error) => ({ ...error, email: "email is invalid" }))
-        : setError((error) => ({ ...error, email: "valaid" }));
-    } else {
-      setError((error) => ({ ...error, email: "" }));
-    }
-    if (password !== "") {
-      password.length <= 8
-        ? setError((error) => ({
-            ...error,
-            password: "password needs a minimum of 8 charcter",
-          }))
-        : !validPassword.test(password)
-        ? setError((error) => ({ ...error, password: "password is invalid" }))
-        : setError((error) => ({ ...error, password: "valaid" }));
-    } else {
-      setError((error) => ({ ...error, password: "" }));
-    }
-    if (passwordConfirm !== "") {
-      passwordConfirm !== password
-        ? setError((error) => ({
-            ...error,
-            passwordConfirm: "passwords need to be matched",
-          }))
-        : setError((error) => ({ ...error, passwordConfirm: "valaid" }));
-    } else {
-      setError((error) => ({ ...error, passwordConfirm: "" }));
-    }
-    if (
-      error.fullName !== "valaid" ||
-      error.email !== "valaid" ||
-      error.password !== "valaid" ||
-      error.passwordConfirm !== "valaid"
-    )
-      setValidation(false);
-    return validation;
+    setError({
+      fullName: validateField(
+        fullName,
+        fullName.length > 5,
+        "please enter a valid Full Name"
+      ),
+      email: validateField(email, validEmail.test(email), "email is invalid"),
+      password: validateField(
+        password,
+        password.length >= 5 && validPassword.test(password),
+        password.length <= 8
+          ? "password needs a minimum of 8 characters"
+          : "password is invalid"
+      ),
+      passwordConfirm: validateField(
+        passwordConfirm,
+        passwordConfirm === password,
+        "passwords need to be matched"
+      ),
+    });
   }
-  return { error, validate, validation };
+
+  useEffect(() => {
+    const isValid =
+      error.fullName === "valid" &&
+      error.email === "valid" &&
+      error.password === "valid" &&
+      error.passwordConfirm === "valid";
+
+    setIsFormValid(isValid);
+    setIsDisabled(!isValid);
+  }, [error]);
+
+  return { error, isDisabled, validate, isFormValid };
 }
 
 export default useValidate;

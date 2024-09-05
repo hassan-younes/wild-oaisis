@@ -50,6 +50,6 @@ async function Signup({ fullName, email, password }) {
     throw new Error(error.message);
   }
   console.log(data);
-  return data;
+  return data, error;
 }
 export { Signup };

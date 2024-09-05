@@ -58,7 +58,9 @@ const Button = styled.button`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
-
+${(props)=>props.minWidth && css`
+min-width: 17rem;
+`}
   ${(props) => sizes[props.size]}
   ${(props) =>variations[props.variation]}
   
@@ -67,6 +69,7 @@ const Button = styled.button`
 Button.defaultProps = {
   variation: "primary",
   size: "medium",
+  minWidth:"",
 
 };
 

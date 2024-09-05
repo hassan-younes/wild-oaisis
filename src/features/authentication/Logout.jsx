@@ -1,4 +1,5 @@
-import Button from "../../ui/Button"
+import { HiArrowRightOnRectangle } from "react-icons/hi2"
+import ButtonIcon from "../../ui/ButtonIcon"
 import SpinnerMini from "../../ui/SpinnerMini.jsx"
 import useLogout from "./useLogout.js"
 function Logout() {
@@ -7,7 +8,7 @@ function Logout() {
 logout()
     }
     return (
-       <Button onClick={handleClick} size="small">{isLoggingOut?<SpinnerMini/>:"Log out"}</Button>
+       <ButtonIcon onClick={handleClick}>{isLoggingOut?<SpinnerMini/>:<HiArrowRightOnRectangle/>}</ButtonIcon>
     )
 }
 

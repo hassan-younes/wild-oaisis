@@ -7,10 +7,10 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 
-  ${(props)=>(props.error!=="" && props.error!=="valaid")&&css`
+  ${(props)=>(props.error!=="" && props.error!=="valid")&&css`
   border-color: var(--color-red-700) 
   `}
-  ${(props)=>(props.error==="valaid")&&css`
+  ${(props)=>(props.error==="valid")&&css`
   border-color: var(--color-green-700) 
   `}
 `;

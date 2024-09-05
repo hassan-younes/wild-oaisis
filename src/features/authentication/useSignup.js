@@ -12,8 +12,8 @@ export default function useSignup() {
     onSuccess: () => {
       toast.success("user signedUp correctly");
     },
-    onError: () => {
-      toast.error("there was an error try again please");
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
   return { signup, error, isLoading };
