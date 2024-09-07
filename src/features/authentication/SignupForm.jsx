@@ -12,7 +12,7 @@ function SignupForm() {
   const {signup,isLoading}=useSignup()
   const ref=useRef()
   const{error,validate,isFormValid:validation}=useValidate(formData)
-console.log(error)
+
    async function handleSubmit(e){
     e.preventDefault();
  
@@ -29,10 +29,6 @@ console.log(error)
      ref.current.focus()
     },[ref]);
   
-function hanldeOnChange(e){
-  setFormdata((data)=>({...data,passwordConfirm:e.target.value}))
-  validate()
-}
 return (
     <Form onSubmit={handleSubmit}>
       <FormRow label="Full name" error={error.fullName}>
@@ -55,7 +51,7 @@ return (
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isLoading } minWidth="asd" variation={isLoading? "loading":"primary"}>{!isLoading?"Create new user":<SpinnerMini process="Creating.."/>}</Button>
+        <Button disabled={isLoading } variation={isLoading? "loading":"primary"}>{!isLoading?"Create new user":<SpinnerMini process="Creating.."/>}</Button>
       </FormRow>
     </Form>
   );
