@@ -18,14 +18,15 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast"
 import Booking from "./pages/Booking"
 import ProtectedRout from "./ui/ProtectedRout"
+import { DarkModeProvider } from "./context/DarkModeContext"
 
 const queryClient= new QueryClient()
 
 export default function App() {
 
 return (
-   
 <QueryClientProvider client={queryClient}>
+<DarkModeProvider>   
 <ReactQueryDevtools initialIsOpen={false} />
 <GlobalStyles />    
 <BrowserRouter>
@@ -61,6 +62,7 @@ return (
   }
   }}
 />
+</DarkModeProvider>
 </QueryClientProvider>
 
 )}
