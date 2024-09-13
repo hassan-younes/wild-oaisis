@@ -6,6 +6,7 @@ import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 import  useUpdateUser  from './useUpdateUser';
+import toast from 'react-hot-toast';
 
 function UpdateUserDataForm() {
   // We don't need the loading state
@@ -24,7 +25,7 @@ function UpdateUserDataForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!fullName) return;
+    if (!fullName) return toast.error("please insert your name");
 
     updateUser(
       { fullName,userId, avatar,photoName:Math.floor(Math.random() * 10000000) },
