@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { box } from 'styles/styles';
+
 
 const DashboardBox = styled.div`
-  ${box}
-  padding: 3.2rem;
 
+  padding: 3.2rem;
+  background-color: var(--color-grey-100);
+  border-radius: var(--border-radius-md);
   display: flex;
   flex-direction: column;
   gap: 2.4rem;

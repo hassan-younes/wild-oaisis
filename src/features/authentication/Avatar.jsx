@@ -16,7 +16,7 @@ function Avatar() {
     const{ id:userId,user_metadata:{fullName,photoName}}=user
 
     const imagePath="https://hypssvjzqqqotzbfvhph.supabase.co/storage/v1/object/public/avatars/"
-    const image= imagePath+userId+"/"+photoName
+    const image= photoName?imagePath+userId+"/"+photoName:"/default-user.jpg"
 
  
  

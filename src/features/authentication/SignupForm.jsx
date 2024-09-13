@@ -46,7 +46,7 @@ return (
       <FormRow label="Repeat password" error={error.passwordConfirm}>
         <Input disabled={isLoading} onBlur={validate} error={error.passwordConfirm} type="password" value={passwordConfirm} onChange={(e)=>setFormdata((data)=>({...data,passwordConfirm:e.target.value}))}  id="passwordConfirm" />
       </FormRow>
-
+      
       <FormRow>
         <Button variation="secondary" type="reset">
           Cancel
